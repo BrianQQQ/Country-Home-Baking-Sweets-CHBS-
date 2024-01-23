@@ -1,0 +1,7 @@
+# Author: Taiwo Akinlabi
+asgiref==3.7.2
+Django==4.2.6
+django-clearcache==1.2.1
+mysqlclient==2.2.0
+Pillow==10.1.0
+sqlparse==0.4.4

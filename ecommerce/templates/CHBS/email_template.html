@@ -1,0 +1,13 @@
+Hi Suzanne,
+
+You have a new order, please find the Customer & order details below:
+
+Customer: {{customer.name}}
+Phone Number: {{customer.phone}}
+Email: {{customer.email}}
+Order Number:{{order.id}}
+Order Description:{% for item in items %}
+                {{item.product.name}} [{{item.quantity}}] -  ${{item.get_total|floatformat:2}} {% endfor %}
+Quantity: {{order.get_cart_items}}
+SubTotal: {{order.get_cart_subtotal}}
+Total: ${{order.get_cart_total}}

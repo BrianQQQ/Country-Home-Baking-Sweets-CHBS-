@@ -1,0 +1,137 @@
+
+body {
+  margin: 0;
+  min-height: 200vh;
+  font-size: 0;
+  font-family: Helvetica, Verdana, sans-serif;
+}
+/* Reset default margin and padding */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+/* Navbar styles */
+nav {
+background-color: rgba(136, 123, 115, 0); /* Use rgba to set the background color with transparency */
+display: flex;
+justify-content: space-between;
+align-items: end;
+padding: 10px 20px;
+/* position: sticky; */
+top: 0;
+width: 100%;
+z-index: 1000;
+backdrop-filter: blur(12px); /* Apply a backdrop filter for further transparency and blur */
+}
+.nav-title {
+color: #b8652e;
+margin-top: 1%;
+text-decoration: none;
+font-size: 2.5rem;
+font-weight: bold;
+font-family: 'Arial', sans-serif;
+}
+
+.navbar-nav {
+list-style-type: none;
+display: flex;
+margin: 0;
+padding: 0;
+}
+
+.nav-link {
+  margin: 0 10px;
+  color: #b8652e;
+  margin-top: 1%;
+  text-decoration: none;
+  font-size: 2.5rem;
+  font-family: 'Arial', sans-serif;
+}
+a:hover{
+color: #573518;
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .nav-title {
+    margin-bottom: 10px;
+  }
+
+  .nav-list {
+    flex-direction: column;
+  }
+
+  .nav-link {
+    margin: 5px 0;
+  }
+
+
+}
+
+.card-title {
+    
+  font-size: 1.8rem;
+  color: #c37a3e;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Source https://www.w3schools.com/howto/howto_js_snackbar.asp*/
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+.card-img{
+  width: 334px;
+  height: 445.33px;
+}
