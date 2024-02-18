@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'CHBS',
     'clearcache',
     'phonenumber_field',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -68,9 +73,20 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
@@ -84,7 +100,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'CHBS',
         'USER': 'root',
-        'PASSWORD': 'bumblebee2',
+        'PASSWORD': 'test123',
         'HOST': 'localhost',
         'PORT':'3306',
     }
@@ -148,3 +164,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'xxxx@gmail.com'
 EMAIL_HOST_PASSWORD = 'srez zzku npis wlac'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = '/admin/'
