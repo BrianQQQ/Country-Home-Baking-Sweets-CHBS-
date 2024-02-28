@@ -7,6 +7,7 @@ app_name = 'chbs'
 
 # named urls to their respestive views
 urlpatterns = [
+    path('test_home/', views.test_home, name='test_home'),
     path('', views.homepage, name='homepage'),
     path('cart/', views.cart, name='cart'),
     path('menu/', views.menu, name='menu'),

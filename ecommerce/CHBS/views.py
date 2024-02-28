@@ -13,6 +13,9 @@ from django.conf import settings
 from django.template.loader import render_to_string
 # Create your views here.
 
+def test_home(request):
+    return render(request, 'CHBS/home.html')
+
 # view function for the homepage returns the page request, urls and context dictonary containing 
 # The context dictonary contains values that can retrived from the database
 def homepage(request):
