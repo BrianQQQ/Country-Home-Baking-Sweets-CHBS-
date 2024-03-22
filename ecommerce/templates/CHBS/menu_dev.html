@@ -1,0 +1,45 @@
+{% extends "CHBS/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Our Special</h2>
+    <div class="row">
+        {% for product in products %}
+        {% if product.special == True and product.hide == False %}
+            <div class="col-md-3 mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{product.imageURL}}" class="card-img-top" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <button class="btn btn-primary update-cart" data-product="{{product.id}}" data-action="add" onclick="snack('{{ product.name }}')">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<div class="container mt-4">
+    <h2>Our Porducts</h2>
+    <div class="row">
+        {% for product in products %}
+        {% if product.special == False and product.hide == False %}
+        <div class="col-md-3 mb-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{product.imageURL}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <button class="btn btn-primary update-cart" data-product="{{product.id}}" data-action="add" onclick="snack('{{ product.name }}')">Add To Cart</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div id="snackbar">{{ product.name }} added to cart</div>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

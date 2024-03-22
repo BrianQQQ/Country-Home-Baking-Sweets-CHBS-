@@ -13,8 +13,13 @@ from django.conf import settings
 from django.template.loader import render_to_string
 # Create your views here.
 
-def test_home(request):
+def home(request):
     return render(request, 'CHBS/home.html')
+
+def menu(request):
+    products  = Product.objects.all()
+    context = {'products':products}
+    return render(request, 'CHBS/menu_dev.html', context)
 
 # view function for the homepage returns the page request, urls and context dictonary containing 
 # The context dictonary contains values that can retrived from the database
@@ -37,10 +42,10 @@ def cart(request):
     return render(request, 'CHBS/cart.html', context)
 
 # view function for the menu page returns the page request, urls and context dictonary
-def menu(request):
-    products  = Product.objects.all()
-    context = {'products':products}
-    return render(request, 'CHBS/menu.html', context)
+# def menu(request):
+#     products  = Product.objects.all()
+#     context = {'products':products}
+#     return render(request, 'CHBS/menu.html', context)
 
 # view function for the contact page returns the page request, urls and context dictonary
 def contact(request):
