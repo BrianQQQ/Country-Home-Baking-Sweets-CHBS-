@@ -1,6 +1,6 @@
 # Author: Taiwo Akinlabi
 #Code sourced from : https://www.youtube.com/watch?v=obZMr9URmVI&list=PL-51WBLyFTg0omnamUjL1TCVov7yDTRng&index=2
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.http import JsonResponse
 from decimal import *
@@ -11,17 +11,35 @@ from .utils import *
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
+from .forms import *
+from django.core.mail import send_mail
+from django.conf import settings
+
 # Create your views here.
+
+def home(request):
+    special_products = []
+    products = Product.objects.all()
+    for prod in products:
+        if prod.special:
+            special_products.append(prod)
+    context = {'special_products': special_products[0:3]}
+    return render(request, 'CHBS/home.html', context)
+
+def menu(request):
+    products  = Product.objects.all()
+    context = {'products':products}
+    return render(request, 'CHBS/menu_dev.html', context)
 
 # view function for the homepage returns the page request, urls and context dictonary containing 
 # The context dictonary contains values that can retrived from the database
-def homepage(request):
-    products  = Product.objects.all()
-    data = cartData(request)
-    cartItems = data['cartItems']
-    order = data['order']
-    context = {'products':products, 'order':order}
-    return render(request, 'CHBS/homepage.html', context)
+# def homepage(request):
+#     products  = Product.objects.all()
+#     data = cartData(request)
+#     cartItems = data['cartItems']
+#     order = data['order']
+#     context = {'products':products, 'order':order}
+#     return render(request, 'CHBS/homepage.html', context)
 
 # view function for the cart page returns the page request, urls and context dictonary
 def cart(request):
@@ -34,10 +52,10 @@ def cart(request):
     return render(request, 'CHBS/cart.html', context)
 
 # view function for the menu page returns the page request, urls and context dictonary
-def menu(request):
-    products  = Product.objects.all()
-    context = {'products':products}
-    return render(request, 'CHBS/menu.html', context)
+# def menu(request):
+#     products  = Product.objects.all()
+#     context = {'products':products}
+#     return render(request, 'CHBS/menu.html', context)
 
 # view function for the contact page returns the page request, urls and context dictonary
 def contact(request):
@@ -50,12 +68,26 @@ def checkout(request):
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
-
-    context = {'items':items, 'order':order, 'cartItems':cartItems,}
+    form = OrderForm()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            number = form.cleaned_data['number']
+            instruction = form.cleaned_data['instruction']
+            title = f'You got a order from {name}'
+            message = f'You got an order from {name}\n- Phone number: {number}\n- Email: {email}\n- Special Instruction: {instruction}'
+            send_mail(title, message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
+            return redirect('chbs:thank-you')
+    
+    context = {'items':items, 'order':order, 'cartItems':cartItems, 'form': form}
  
     return render(request, 'CHBS/checkout.html', context)
 
-# view function for the update_item page that update the cart anytim an item is removed or added for authenticated users
+def thank_you_view(request):
+    return render(request, 'CHBS/thank_you.html')
+
 def updateItem(request):
     data = json.loads(request.body)
     productId = data['productId']

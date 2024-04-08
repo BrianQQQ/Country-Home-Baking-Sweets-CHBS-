@@ -28,11 +28,11 @@ def cookieCart(request):
             
             product = Product.objects.get(id=i)
             subtotal = (product.price * cart[i]['quantity'])
-            tax = round(subtotal * Decimal(0.13),2)
-            total = round(subtotal + tax, 2)
+            # tax = round(subtotal * Decimal(0.13),2)
+            total = round(subtotal, 2)
             
             order['get_cart_subtotal'] += subtotal
-            order['get_cart_tax'] += tax
+            # order['get_cart_tax'] += tax
             order['get_cart_total'] += total
             order['get_cart_items'] += cart[i]['quantity']
             
@@ -48,24 +48,22 @@ def cookieCart(request):
                 }
             items.append(item)
 
-            if product.digital == False:
-                order['shipping'] = True
         except:
             pass  
     return {'items':items, 'order':order, 'cartItems':cartItems}
 
 # get the cart data for both authenticated and unauthenticated users and returns its as a dictionary
 def cartData(request):
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-       cookieData = cookieCart(request)
-       cartItems = cookieData['cartItems']
-       order = cookieData['order']
-       items = cookieData['items']
+    # if request.user.is_authenticated:
+    #     customer = request.user.customer
+    #     order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    #     items = order.orderitem_set.all()
+    #     cartItems = order.get_cart_items
+    # else:
+    cookieData = cookieCart(request)
+    cartItems = cookieData['cartItems']
+    order = cookieData['order']
+    items = cookieData['items']
     return {'items':items, 'order':order, 'cartItems':cartItems}
 
 # processes the guest's order and returns the customer's info, order & order items 

@@ -2,6 +2,16 @@
 // Code sourced from : https://www.youtube.com/watch?v=obZMr9URmVI&list=PL-51WBLyFTg0omnamUjL1TCVov7yDTRng&index=2
 var updateBtns = document.getElementsByClassName('update-cart')
 
+function snack() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+  
+    // Add the "show" class to DIV
+    x.className = "show";
+  
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);}
+
 // loops through add to cart buttons
 for (i=0; i < updateBtns.length; i++) {
     updateBtns[i].addEventListener('click', function(){

@@ -1,0 +1,70 @@
+{% extends "CHBS/base.html" %}
+{% load static %}
+{% block content %}
+<div class="px-4 py-5 text-center background-image-area d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+  <div>
+      <h1 class="display-5 fw-bold text-body-emphasis">Country Home Baking and Sweets</h1>
+      <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">Discover a range of homemade baked goods, from cakes and cupcakes to cookies, squares, and pies, including a special Tourtière during the holiday season. Each product is crafted with care, showcasing seasonal specialties and a commitment to quality. For a taste of homemade excellence, orders can be placed <strong>Monday to Thursday, 6am to 6pm</strong>, though please note the facility is not peanut-free.</p>
+        <!-- <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Primary button</button>
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button>
+        </div> -->
+      </div>
+  </div>
+</div>
+
+      <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+          <div class="col-10 col-sm-8 col-lg-6">
+            <img src="{% static 'images/women_baker.png' %}" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Hello, <br>I'm Suzanne Hill</h1>
+            <p class="lead">Suzanne Hill's journey from crafting mud pies as a child to becoming a beloved baker in Metcalfe embodies her lifelong passion for baking. Transitioning from a singer to a baker after her family grew, she founded her business on the popularity of her themed cakes, eventually focusing on seasonal baking. Now, she supplies her community with a variety of homemade goods, balancing her commitment to quality with the joy of creating big-as-your-face chocolate chip cookies and more.</p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container px-4 py-5" id="custom-cards">
+        <h2 class="pb-2 border-bottom">Seasonal Special</h2>
+        
+        <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+          {% for product in special_products %}
+          <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('{{ product.imageURL }}')">
+              <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold d-flex justify-content-between">{{ product.name }} 
+                  <span>
+                    <button type="button" class="btn btn-primary update-cart" data-product="{{product.id}}" data-action="add" onclick="snack('{{ product.name }}')">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"></path>
+                      </svg>
+                      Add
+                    </button>
+                  </span>
+                </h3>
+                <!-- <ul class="d-flex list-unstyled mt-auto">
+                  <li class="me-auto">
+                    
+                  </li>
+                  <li class="d-flex align-items-center me-3">
+                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                    <small>Earth</small>
+                  </li>
+                  <li class="d-flex align-items-center">
+                    <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"></use></svg>
+                    <small>3d</small>
+                  </li>
+                </ul> -->
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+      <script type="text/javascript">
+          let user = '{{request.user}}'
+      </script>
+{% endblock %}
