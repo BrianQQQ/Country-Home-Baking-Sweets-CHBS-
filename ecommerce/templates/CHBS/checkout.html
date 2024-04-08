@@ -75,8 +75,8 @@ background-position: center;">
             <div class="container" >
                 <a class="btn btn-secondary" href="{% url 'chbs:cart' %}">&#8592; Back to cart</a>
                 <br><br>
-                <form action="" id="form">
-
+                <form action="{% url 'chbs:checkout' %}" id="form" method="POST">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-25">
                             <div class="container" style="background-color: aliceblue;">
@@ -91,8 +91,8 @@ background-position: center;">
                                
                                 {% endfor %}
                                 <hr>
-                                <p>Subtotal <span class="subtotal price" style="color:#c59a6c"><b>${{order.get_cart_subtotal|floatformat:2}}</b></span></p>
-                                <p>Taxes & other fees <span class="price" style="color:#c59a6c"><b>${{order.get_cart_tax|floatformat:2}}</b></span></p>
+                                <!-- <p>Subtotal <span class="subtotal price" style="color:#c59a6c"><b>${{order.get_cart_subtotal|floatformat:2}}</b></span></p>
+                                <p>Taxes & other fees <span class="price" style="color:#c59a6c"><b>${{order.get_cart_tax|floatformat:2}}</b></span></p> -->
                                 <p>Total <span class="price" style="color:#c59a6c"><b>${{order.get_cart_total|floatformat:2}}</b></span></p>
                             </div>
                             <div class="box-element hidden" id="payment-info">
@@ -107,13 +107,13 @@ background-position: center;">
                             <h2 style="color: #f7f7f7;">Billing Address</h2>
                             <div id="user-info" >
                             <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-                            <input type="text" id="fname" name="fullname" placeholder="Meghan M. Doe" required>
+                            <input type="text" id="fname" name="name" placeholder="Meghan M. Doe" required>
                             <label for="email"><i class="fa fa-envelope"></i> Email</label>
                             <input type="text" id="email" name="email" placeholder="meghan@example.com" required>
                             <label for="phone"><i class="fa fa-phone"></i> Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="000 000 0000" required>
+                            <input type="tel" id="phone" name="number" placeholder="000 000 0000" required>
                             <label for="myText"> <i class="fa fa-envelope"></i> Special Instructions:</label>
-                            <input type="text" id="myText" name="myText" placeholder="Allergies, dietary restrictions, notes.">
+                            <input type="text" id="myText" name="instruction" placeholder="Allergies, dietary restrictions, notes.">
                         </div>
                             <div id="shipping-info">
                             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
@@ -136,7 +136,7 @@ background-position: center;">
                         </div>
 
                     </div>
-                    <input id="form-button" type="submit" value="Continue to checkout" class="btn" href="{% url 'chbs:cart' %}">
+                    <input id="form-button" type="submit" value="Continue to checkout" class="btn" >
                 </form>
             </div>
         </div>
@@ -170,13 +170,13 @@ background-position: center;">
             document.getElementById('payment-info').classList.add("hidden");
         }
 
-        var form = document.getElementById('form')
-        form.addEventListener('submit', function(e){
-            e.preventDefault()
-            console.log('Form Submitted...')
-            document.getElementById('form-button').classList.add('hidden')
-            document.getElementById('payment-info').classList.remove('hidden')
-        })
+        // var form = document.getElementById('form')
+        // form.addEventListener('submit', function(e){
+        //     e.preventDefault()
+        //     console.log('Form Submitted...')
+        //     document.getElementById('form-button').classList.add('hidden')
+        //     document.getElementById('payment-info').classList.remove('hidden')
+        // })
 
         document.getElementById('make-payment').addEventListener('click', function(e){
             e.preventDefault()
